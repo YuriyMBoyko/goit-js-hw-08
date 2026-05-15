@@ -1,3 +1,10 @@
+:root {
+  --images-gap: 24px;
+  --column-number: 3;
+/*  --gap-number: 2;*/
+  --gap-number: calc(var(--column-number) - 1);
+}
+
 body {
   margin: 0 auto;
   padding: 24px;
@@ -25,13 +32,15 @@ img {
   justify-content: center;
   align-items: center;
   flex-wrap: wrap;
-  gap: 24px;
+  gap: var(--images-gap); /*24px;*/
   margin: 0 auto;
 }
 
 .gallery-item {
   display: flex;
-  flex-basis: calc((100% - 2 * 24px) / 3);
+/*  flex-basis: calc((100% - 2 * 24px) / 3);*/
+  flex-basis: calc((100% - (var(--gap-number) * var(--images-gap))) / var(--column-number));
+/*  flex-basis: calc((100% - ((var(--column-number) - 1) * var(--images-gap))) / var(--column-number));*/
   max-height: 200px;
 }
 

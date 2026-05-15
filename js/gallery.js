@@ -32,14 +32,26 @@ gallery.addEventListener('click', event => {
   }
 });
 
-document.addEventListener('keydown', event => {
-  const modal = document.querySelector(`.${classNameModal}`);
-  const targetImg = event.target.querySelector(`.${classNameGalleryImage}`);
-  if (!modal && targetImg &&
-    (event.code === 'Enter' ||
-     event.code === 'NumpadEnter' ||
-     event.code === 'Space')) {
-    openModal(targetImg.dataset.source);
+gallery.addEventListener('keydown', event => {
+  const target = event.target;
+  if (!target || !(target instanceof Element)) {
+    return;
+  }
+
+  if (event.code === 'Enter' ||
+      event.code === 'NumpadEnter' ||
+      event.code === 'Space') {
+    const modal = document.querySelector(`.${classNameModal}`);
+    if (!modal) {
+      const clickedItem = event.target.closest(`.${classNameGalleryItem}`);
+      if (clickedItem) {
+        const targetImg = event.target.querySelector(`.${classNameGalleryImage}`);
+        if (targetImg) {
+          event.preventDefault();
+          openModal(targetImg.dataset.source);
+        }
+      }
+    }
   }
 });
 
